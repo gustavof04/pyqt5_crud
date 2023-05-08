@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../Downloads/8665614_list_checklist_icon.svg</normaloff>../../../Downloads/8665614_list_checklist_icon.svg</iconset>
+    <normaloff>assets/8665614_list_checklist_icon.svg</normaloff>assets/8665614_list_checklist_icon.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
