@@ -25,7 +25,7 @@
        <widget class="QLineEdit" name="lineEdit_AddingItem">
         <property name="font">
          <font>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
          </font>
         </property>
        </widget>
@@ -63,7 +63,13 @@
        </layout>
       </item>
       <item>
-       <widget class="QListWidget" name="minhaLista_listWidget"/>
+       <widget class="QListWidget" name="minhaLista_listWidget">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
