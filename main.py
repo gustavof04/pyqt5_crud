@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog, QMessageBox, QAbstractItemView, QListWidget
 from janela import Ui_MainWindow
 
 class Agenda:
@@ -10,6 +10,13 @@ class Agenda:
         self.ui.pushButton_DeleteAll.clicked.connect(self.clear_list)
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
      
+        # Habilita a capacidade de reordenar itens usando arrastar e soltar
+        self.ui.minhaLista_listWidget.setDragDropMode(QAbstractItemView.InternalMove)
+        # Reorganiza os itens da lista automaticamente conforme a posição do item reordenado
+        self.ui.minhaLista_listWidget.setMovement(QListWidget.Snap)
+        # Impede o usuário de arrastar e soltar a tarefa fora da aplicação
+        self.ui.minhaLista_listWidget.setDragDropMode(self.ui.minhaLista_listWidget.InternalMove)
+
         # Desabilita o botão "Adicionar tarefa" inicialmente
         self.ui.pushButton_Create.setEnabled(False)
 
