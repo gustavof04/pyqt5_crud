@@ -11,7 +11,7 @@ class Agenda:
         self.ui.pushButton_Delete.clicked.connect(self.delete_task)
         self.ui.pushButton_Delete.setToolTip('Remover uma tarefa')
         self.ui.pushButton_DeleteAll.clicked.connect(self.clear_list)
-        self.ui.pushButton_DeleteAll.setToolTip('Limpar lista')
+        self.ui.pushButton_DeleteAll.setToolTip('Limpar agenda')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
      
         # Habilita a capacidade de reordenar itens usando arrastar e soltar
@@ -61,7 +61,10 @@ class Agenda:
             return
         
     def clear_list(self):
-        confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja limpar a lista de tarefas?")
+        if self.ui.minhaLista_listWidget.count() == 0:
+            QMessageBox.warning(self.ui.centralwidget, "Aviso", "A agenda já está vazia.")
+            return
+        confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja limpar a agenda?")
         if confirm == QMessageBox.Yes:
             self.ui.minhaLista_listWidget.clear()
 
