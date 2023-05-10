@@ -5,9 +5,13 @@ class Agenda:
     def __init__(self, ui):
         self.ui = ui
         self.ui.pushButton_Create.clicked.connect(self.add_task)
+        self.ui.pushButton_Create.setToolTip('Adicionar tarefa')
         self.ui.pushButton_Update.clicked.connect(self.update_task)
+        self.ui.pushButton_Update.setToolTip('Editar uma tarefa')
         self.ui.pushButton_Delete.clicked.connect(self.delete_task)
+        self.ui.pushButton_Delete.setToolTip('Remover uma tarefa')
         self.ui.pushButton_DeleteAll.clicked.connect(self.clear_list)
+        self.ui.pushButton_DeleteAll.setToolTip('Limpar lista')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
      
         # Habilita a capacidade de reordenar itens usando arrastar e soltar

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>399</width>
-    <height>629</height>
+    <width>252</width>
+    <height>416</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>assets/8665614_list_checklist_icon.svg</normaloff>assets/8665614_list_checklist_icon.svg</iconset>
+    <normaloff>assets/agenda.svg</normaloff>assets/agenda.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -35,28 +35,68 @@
         <item>
          <widget class="QPushButton" name="pushButton_Create">
           <property name="text">
-           <string>Adicionar tarefa</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>assets/add.svg</normaloff>assets/add.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_Update">
           <property name="text">
-           <string>Editar uma tarefa</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>assets/edit.svg</normaloff>assets/edit.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_Delete">
           <property name="text">
-           <string>Remover uma tarefa</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>assets/delete.svg</normaloff>assets/delete.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_DeleteAll">
           <property name="text">
-           <string>Limpar lista</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>assets/delete_all.svg</normaloff>assets/delete_all.svg</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -80,7 +120,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>399</width>
+     <width>252</width>
      <height>21</height>
     </rect>
    </property>
