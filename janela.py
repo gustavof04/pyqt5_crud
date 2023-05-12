@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.lineEdit_AddingItem = QtWidgets.QLineEdit(self.centralwidget)
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(11)
         self.lineEdit_AddingItem.setFont(font)
         self.lineEdit_AddingItem.setObjectName("lineEdit_AddingItem")
         self.verticalLayout.addWidget(self.lineEdit_AddingItem)
