@@ -32,10 +32,18 @@ class Agenda:
 
     def add_task(self):
         task_text = self.ui.lineEdit_AddingItem.text()
-        if task_text != "":
-            self.ui.minhaLista_listWidget.addItem(task_text)
-            self.ui.lineEdit_AddingItem.clear()
-            self.ui.minhaLista_listWidget.setCurrentItem(None)
+        if task_text == "":
+            return
+
+        for index in range(self.ui.minhaLista_listWidget.count()):
+            item = self.ui.minhaLista_listWidget.item(index)
+            if item.text() == task_text:
+                QMessageBox.warning(self.ui.centralwidget, "Aviso", "Esta tarefa já está na lista.")
+                return
+
+        self.ui.minhaLista_listWidget.addItem(task_text)
+        self.ui.lineEdit_AddingItem.clear()
+        self.ui.minhaLista_listWidget.setCurrentItem(None)
 
     def update_task(self):
         selected_item = self.ui.minhaLista_listWidget.currentItem()
