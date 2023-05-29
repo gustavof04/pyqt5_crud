@@ -13,6 +13,7 @@ class Agenda:
         self.ui.pushButton_DeleteAll.clicked.connect(self.clear_list)
         self.ui.pushButton_DeleteAll.setToolTip('Limpar agenda')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
+        self.ui.lineEdit_AddingItem.setPlaceholderText("Digite uma tarefa")
      
         # Habilita a capacidade de reordenar itens usando arrastar e soltar
         self.ui.minhaLista_listWidget.setDragDropMode(QAbstractItemView.InternalMove)
@@ -79,87 +80,9 @@ class Agenda:
 if __name__ == "__main__":
     app = QApplication([])
 
-    app.setStyleSheet("""
-        QMainWindow {
-            background-color: "#1b1b1b";
-        }
-
-        QLineEdit {
-            color: "#ffffff";
-            font-family: 'Roboto', arial, cursive;
-            background-color: "#4e4e4e";
-            border-radius: 2px;
-            height: 30px;
-        }
-
-        QListWidget {
-            color: "#ffffff";
-            font-size: 24px;
-            font-family: 'Roboto', arial, cursive;
-            background-color: "#4e4e4e";
-            border-radius: 4px
-        }
-
-        QPushButton {
-            padding-top: 6px;
-            padding-bottom: 6px;
-            background-color: "#93d849";
-            border-radius: 10px
-        }
-
-        QPushButton:hover {
-            background-color: "#a6f750";
-        }
-
-        QMessageBox {
-            background-color: "#1b1b1b";
-            color: "#ffffff";
-            font-family: 'Roboto', arial, cursive;
-            font-size: 16px;
-        }
-
-        QMessageBox QLabel {
-            color: "#ffffff";
-        }
-
-        QMessageBox QPushButton {
-            background-color: "#93d849";
-            border-radius: 10px;
-            padding: 5px
-        }
-
-        QMessageBox QPushButton:hover {
-            background-color: "#a6f750";
-        }
-
-        QInputDialog {
-            background-color: "#1b1b1b";
-            color: "#ffffff";
-            font-family: 'Roboto', arial, cursive;
-        }
-
-        QInputDialog QLabel {
-            color: "#ffffff";
-        }
-
-        QInputDialog QLineEdit {
-            color: "#ffffff";
-            background-color: "#4e4e4e";
-            border-radius: 2px;
-            height: 30px;
-        }
-
-        QInputDialog QPushButton {
-            background-color: "#93D849";
-            border-radius: 10px;
-            padding: 5px;
-        }
-
-        QInputDialog QPushButton:hover {
-            background-color: "#a6f750";
-        }
-
-    """)
+    with open("styles.qss", "r") as f:
+        qss = f.read()
+        app.setStyleSheet(qss)
 
     window = QMainWindow()
     ui = Ui_MainWindow()
