@@ -29,6 +29,10 @@ QPushButton:hover {
     background-color: "#a6f750";
 }
 
+QPushButton#pushButton_Find {
+    padding: 7px
+}
+
 QMessageBox {
     background-color: "#1b1b1b";
     color: "#ffffff";

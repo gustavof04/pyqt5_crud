@@ -12,6 +12,7 @@ class Agenda:
         self.ui.pushButton_Delete.setToolTip('Remover uma tarefa')
         self.ui.pushButton_DeleteAll.clicked.connect(self.clear_list)
         self.ui.pushButton_DeleteAll.setToolTip('Limpar agenda')
+        self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_AddingItem.setPlaceholderText("Digite uma tarefa")
      
