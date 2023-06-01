@@ -3,6 +3,11 @@ from janela import Ui_MainWindow
 
 class Agenda:
     def __init__(self, ui):
+        """
+        Inicializa a Agenda.
+        Args:
+            ui: Instância da classe Ui_MainWindow gerada pelo Qt Designer.
+        """
         self.ui = ui
         self.ui.pushButton_Create.clicked.connect(self.add_task)
         self.ui.pushButton_Create.setToolTip('Adicionar tarefa')
@@ -27,53 +32,74 @@ class Agenda:
         self.ui.pushButton_Create.setEnabled(False)
 
     def check_textbox(self):
+        """
+        Verifica se o lineEdit_AddingItem está vazio e habilita/desabilita o botão "Adicionar tarefa" de acordo.
+        """
         if self.ui.lineEdit_AddingItem.text() == "":
             self.ui.pushButton_Create.setEnabled(False)
         else:
             self.ui.pushButton_Create.setEnabled(True)
 
     def add_task(self):
+        """
+        Adiciona uma tarefa à lista de tarefas da agenda.
+        """
         task_text = self.ui.lineEdit_AddingItem.text()
         if task_text == "":
             return
 
+        # Verifica se a tarefa já está na lista
         for index in range(self.ui.minhaLista_listWidget.count()):
             item = self.ui.minhaLista_listWidget.item(index)
             if item.text() == task_text:
                 QMessageBox.warning(self.ui.centralwidget, "Aviso", "Esta tarefa já está na lista.")
                 return
 
+        # Adiciona a tarefa à lista
         self.ui.minhaLista_listWidget.addItem(task_text)
         self.ui.lineEdit_AddingItem.clear()
         self.ui.minhaLista_listWidget.setCurrentItem(None)
 
     def update_task(self):
+        """
+        Atualiza uma tarefa selecionada na lista de tarefas.
+        """
         selected_item = self.ui.minhaLista_listWidget.currentItem()
         if selected_item is None:
             QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, selecione uma tarefa para editar.")
             return
 
+        # Abre uma caixa de diálogo para inserir o novo texto da tarefa
         new_text, ok = QInputDialog.getText(self.ui.centralwidget, "Editar Tarefa", "Digite a nova tarefa:", text=selected_item.text())
         if ok:
             selected_item.setText(new_text)
             self.ui.minhaLista_listWidget.setCurrentItem(None)
 
     def delete_task(self):
+        """
+        Remove uma tarefa selecionada da lista de tarefas.
+        """
         selected_item = self.ui.minhaLista_listWidget.currentItem()
         if selected_item is None:
             QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, selecione uma tarefa para remover.")
             return
-        
+
+        # Pede uma confirmação antes de remover a tarefa
         confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja remover esta tarefa?")
         if confirm == QMessageBox.Yes:
             self.ui.minhaLista_listWidget.takeItem(self.ui.minhaLista_listWidget.row(selected_item))
             self.ui.minhaLista_listWidget.setCurrentItem(None)
             return
-        
+
     def clear_list(self):
+        """
+        Limpa a lista de tarefas.
+        """
         if self.ui.minhaLista_listWidget.count() == 0:
             QMessageBox.warning(self.ui.centralwidget, "Aviso", "A agenda já está vazia.")
             return
+        
+        # Pede uma confirmação antes de limpar a lista de tarefas
         confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja limpar a agenda?")
         if confirm == QMessageBox.Yes:
             self.ui.minhaLista_listWidget.clear()
@@ -81,6 +107,7 @@ class Agenda:
 if __name__ == "__main__":
     app = QApplication([])
 
+    # Carrega as estilizações
     with open("styles.qss", "r") as f:
         qss = f.read()
         app.setStyleSheet(qss)
