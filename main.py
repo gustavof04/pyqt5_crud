@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog, QMessageBox, QAbstractItemView, QListWidget
+from PyQt5 import QtCore
 from janela import Ui_MainWindow
 
 class Agenda:
@@ -17,6 +18,7 @@ class Agenda:
         self.ui.pushButton_Delete.setToolTip('Remover uma tarefa')
         self.ui.pushButton_DeleteAll.clicked.connect(self.clear_list)
         self.ui.pushButton_DeleteAll.setToolTip('Limpar agenda')
+        self.ui.pushButton_Find.clicked.connect(self.find_task)
         self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_AddingItem.setPlaceholderText("Digite uma tarefa")
@@ -62,7 +64,7 @@ class Agenda:
 
     def update_task(self):
         """
-        Atualiza uma tarefa selecionada na lista de tarefas.
+        Edita uma tarefa selecionada na lista de tarefas.
         """
         selected_item = self.ui.minhaLista_listWidget.currentItem()
         if selected_item is None:
@@ -103,6 +105,21 @@ class Agenda:
         confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja limpar a agenda?")
         if confirm == QMessageBox.Yes:
             self.ui.minhaLista_listWidget.clear()
+
+    def find_task(self):
+        """
+        Busca uma tarefa na lista da agenda.
+        """
+        task_text = self.ui.lineEdit_AddingItem.text()
+        if task_text == "":
+            QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, digite uma tarefa para buscar.")
+            return
+        
+        found_items = self.ui.minhaLista_listWidget.findItems(task_text, QtCore.Qt.MatchContains)
+        if len(found_items) > 0:
+            self.ui.minhaLista_listWidget.setCurrentItem(found_items[0])
+        else:
+            QMessageBox.information(self.ui.centralwidget, "Informação", "A tarefa não foi encontrada.")
 
 if __name__ == "__main__":
     app = QApplication([])
