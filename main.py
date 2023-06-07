@@ -1,9 +1,10 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import \
-    QApplication, QMainWindow, QInputDialog, \
-    QMessageBox, QAbstractItemView, QListWidget, \
+from PyQt5.QtWidgets import (
+    QApplication, QMainWindow, QInputDialog, 
+    QMessageBox, QAbstractItemView, QListWidget, 
     QListWidgetItem
+)
 from janela import Ui_MainWindow
 
 class Agenda:
@@ -62,8 +63,7 @@ class Agenda:
                 return
 
         # Adiciona a tarefa à lista
-        item = QListWidgetItem()
-        item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+        item = QListWidgetItem(task_text)
         item.setCheckState(Qt.Unchecked)
         item.setText(task_text)
 
