@@ -20,11 +20,13 @@ class Agenda:
         self.ui = ui
         self.ui.pushButton_Create.clicked.connect(self.add_task)
         self.ui.pushButton_Create.setToolTip('Adicionar tarefa')
+        self.ui.pushButton_Create.setEnabled(False)
         self.ui.pushButton_Find.clicked.connect(self.find_task)
         self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_AddingItem.setPlaceholderText("Digite uma tarefa")
         self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)
+
 
     def check_textbox(self):
         """

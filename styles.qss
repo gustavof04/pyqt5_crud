@@ -47,6 +47,11 @@ QPushButton#pushButton_Find {
     padding: 7px
 }
 
+QPushButton#pushButton_Create {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
 QMessageBox {
     background-color: "#ffffff";
     font-family: 'Roboto', arial, cursive;
