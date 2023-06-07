@@ -1,32 +1,32 @@
 QMainWindow {
-    background-color: "#1b1b1b";
+    background-color: "#ffffff";
 }
 
 QLineEdit {
-    color: "#ffffff";
+    color: "#000000";
     font-family: 'Roboto', arial, cursive;
-    background-color: "#4e4e4e";
+    background-color: "#e3e4e6";
     border-radius: 2px;
     height: 30px;
 }
 
 QListWidget {
-    color: "#ffffff";
+    color: "#1b1b1b";
     font-family: 'Roboto', arial, cursive;
-    font-size: 24px;
-    background-color: "#4e4e4e";
+    font-size: 20px;
+    background-color: "#e3e4e6";
     border-radius: 4px
 }
 
 QPushButton {
-    background-color: "#93d849";
+    background-color: "#e3e4e6";
     padding-top: 6px;
     padding-bottom: 6px;
     border-radius: 10px
 }
 
 QPushButton:hover {
-    background-color: "#a6f750";
+    background-color: "#cfd0d3";
 }
 
 QPushButton#pushButton_Find {
@@ -34,49 +34,48 @@ QPushButton#pushButton_Find {
 }
 
 QMessageBox {
-    background-color: "#1b1b1b";
-    color: "#ffffff";
+    background-color: "#ffffff";
     font-family: 'Roboto', arial, cursive;
     font-size: 16px;
 }
 
 QMessageBox QLabel {
-    color: "#ffffff";
+    color: "#000000";
 }
 
 QMessageBox QPushButton {
-    background-color: "#93d849";
+    background-color: "#e3e4e6";
     font-weight: bold;
     border-radius: 10px;
     padding: 5px
 }
 
 QMessageBox QPushButton:hover {
-    background-color: "#a6f750";
+    background-color: "#cfd0d3";
 }
 
 QInputDialog {
-    background-color: "#1b1b1b";
+    background-color: "#f2f2f7";
     color: "#ffffff";
     font-family: 'Roboto', arial, cursive;
 }
 
 QInputDialog QLabel {
-    color: "#ffffff";
+    color: "#1b1b1b";
     font-family: 'Roboto', arial, cursive;
     font-size: 15px;
 }
 
 QInputDialog QLineEdit {
-    color: "#ffffff";
+    color: "#1b1b1b";
     font-size: 15px;
-    background-color: "#4e4e4e";
+    background-color: "#e3e4e6";
     border-radius: 2px;
     height: 30px;
 }
 
 QInputDialog QPushButton {
-    background-color: "#93d849";
+    background-color: "#e3e4e6";
     font-family: 'Roboto', arial, cursive;
     font-weight: bold;
     border-radius: 10px;
@@ -84,6 +83,6 @@ QInputDialog QPushButton {
 }
 
 QInputDialog QPushButton:hover {
-    background-color: "#a6f750";
+    background-color: "#cfd0d3";
     font-family: 'Roboto', arial, cursive;
 }
