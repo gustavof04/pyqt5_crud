@@ -24,14 +24,7 @@ class Agenda:
         self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_AddingItem.setPlaceholderText("Digite uma tarefa")
-     
-        # Habilita a capacidade de reordenar itens usando arrastar e soltar
-        self.ui.minhaLista_listWidget.setDragDropMode(QAbstractItemView.InternalMove)
-        # Reorganiza os itens da lista automaticamente conforme a posição do item reordenado
-        self.ui.minhaLista_listWidget.setMovement(QListWidget.Snap)
-
-        # Desabilita o botão "Adicionar tarefa" inicialmente
-        self.ui.pushButton_Create.setEnabled(False)
+        self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)
 
     def check_textbox(self):
         """
