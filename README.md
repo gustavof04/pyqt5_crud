@@ -1,6 +1,6 @@
-# Agenda e CRUD com PyQt5
+# Lista Todo e CRUD com PyQt5
 
-Aplicação em Python utilizando a biblioteca PyQt5 para a construção de uma agenda com as operações CRUD (Create, Read, Update, Delete). 
+Aplicação em Python utilizando a biblioteca PyQt5 para a construção de uma lista todo com as operações CRUD (Create, Read, Update, Delete). 
 A aplicação permite que o usuário adicione, visualize, edite e remova atividades.
 
 ## Tecnologias utilizadas
@@ -19,21 +19,21 @@ https://www.python.org/ftp/python/3.11.1/python-3.11.1-macos11.pkg
 ## Configurando o ambiente virtual
 * No seu terminal, navegue até a pasta raiz do projeto e execute o seguinte comando para criar um ambiente virtual:
 
-  _python -m venv nome_da_virtualenv_ (exemplo: venv)
+  <code>python -m venv nome_da_virtualenv</code> (exemplo: venv)
 
 * Rode o comando de acordo com seu sistema para ativar seu ambiente virtual:
 
-  _.\nome_da_virtualenv\Scripts\activate_ (Windows)
+  <code>.\nome_da_virtualenv\Scripts\activate</code> (Windows)
 
-  _source nome_da_virtualenv/bin/activate_ (Linux ou macOS)
+  <code>source nome_da_virtualenv/bin/activate</code> (Linux ou macOS)
 
 ## Instalando as dependências
 * Com o ambiente virtual **ativado**, instale as dependências do projeto com o seguinte comando:
 
-  _pip install -r requirements.txt_
+  <code>pip install -r requirements.txt</code>
 
 ## Abrindo o projeto
-* Execute o arquivo principal da agenda conforme abaixo:
+* Execute o arquivo principal da lista conforme abaixo:
 
-  _python main.py_
+  <code>python main.py</code>
 
