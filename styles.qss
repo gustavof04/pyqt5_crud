@@ -13,9 +13,23 @@ QLineEdit {
 QListWidget {
     color: "#1b1b1b";
     font-family: 'Roboto', arial, cursive;
-    font-size: 20px;
     background-color: "#e3e4e6";
     border-radius: 4px
+}
+
+QListWidget QLabel {
+    color: "#1b1b1b";
+    font-family: 'Roboto', arial, cursive;
+    font-size: 18px;
+    border-radius: 4px
+}
+
+QListWidget QPushButton {
+    background-color: transparent;
+}
+
+QListWidget QPushButton:hover {
+    background-color: transparent;
 }
 
 QPushButton {

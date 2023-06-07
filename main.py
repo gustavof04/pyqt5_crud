@@ -1,9 +1,12 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon, QCursor
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QInputDialog, 
     QMessageBox, QAbstractItemView, QListWidget, 
-    QListWidgetItem
+    QListWidgetItem, QPushButton, QHBoxLayout,
+    QWidget, QLabel, QSpacerItem, QSizePolicy,
+    QCheckBox
 )
 from janela import Ui_MainWindow
 
@@ -17,12 +20,6 @@ class Agenda:
         self.ui = ui
         self.ui.pushButton_Create.clicked.connect(self.add_task)
         self.ui.pushButton_Create.setToolTip('Adicionar tarefa')
-        self.ui.pushButton_Update.clicked.connect(self.update_task)
-        self.ui.pushButton_Update.setToolTip('Editar uma tarefa')
-        self.ui.pushButton_Delete.clicked.connect(self.delete_task)
-        self.ui.pushButton_Delete.setToolTip('Remover uma tarefa')
-        self.ui.pushButton_DeleteAll.clicked.connect(self.clear_list)
-        self.ui.pushButton_DeleteAll.setToolTip('Limpar agenda')
         self.ui.pushButton_Find.clicked.connect(self.find_task)
         self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
@@ -32,8 +29,6 @@ class Agenda:
         self.ui.minhaLista_listWidget.setDragDropMode(QAbstractItemView.InternalMove)
         # Reorganiza os itens da lista automaticamente conforme a posição do item reordenado
         self.ui.minhaLista_listWidget.setMovement(QListWidget.Snap)
-        # Impede o usuário de arrastar e soltar a tarefa fora da aplicação
-        self.ui.minhaLista_listWidget.setDragDropMode(self.ui.minhaLista_listWidget.InternalMove)
 
         # Desabilita o botão "Adicionar tarefa" inicialmente
         self.ui.pushButton_Create.setEnabled(False)
@@ -62,58 +57,79 @@ class Agenda:
                 QMessageBox.warning(self.ui.centralwidget, "Aviso", "Esta tarefa já está na lista.")
                 return
 
-        # Adiciona a tarefa à lista
-        item = QListWidgetItem(task_text)
-        item.setCheckState(Qt.Unchecked)
-        item.setText(task_text)
+        # Cria o widget do item
+        item_widget = QWidget()
+        layout = QHBoxLayout(item_widget)
+        layout.setContentsMargins(10, 0, 0, 0)
 
+        # Cria o checkbox
+        checkbox = QCheckBox()
+        checkbox.setChecked(False)
+        layout.addWidget(checkbox)
+
+        # Cria o label da tarefa
+        task_label = QLabel(task_text)
+        layout.addWidget(task_label)
+
+        spacer_item = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        layout.addItem(spacer_item)
+
+        # Cria o botão de editar
+        edit_button = QPushButton()
+        edit_button.setIcon(QIcon("assets/edit.svg"))
+        edit_button.setIconSize(QtCore.QSize(24, 24))
+        edit_button.setToolTip("Editar esta tarefa")
+        edit_button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        layout.addWidget(edit_button)
+        # Cria o botão de remover
+        remove_button = QPushButton()
+        remove_button.setIcon(QIcon("assets/remove.svg"))
+        remove_button.setIconSize(QtCore.QSize(24, 24))
+        remove_button.setToolTip("Remover esta tarefa")
+        remove_button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        layout.addWidget(remove_button)
+
+        # Cria o item da lista
+        item = QListWidgetItem()
+        item.setSizeHint(item_widget.sizeHint())  # Define o tamanho do item com base no tamanho do widget
         self.ui.minhaLista_listWidget.addItem(item)
+        self.ui.minhaLista_listWidget.setItemWidget(item, item_widget)
+
+        # Conecta o botão de remover à função de remoção
+        remove_button.clicked.connect(lambda: self.delete_task(item))
+
+        # Conecta o botão de editar à função de edição
+        edit_button.clicked.connect(lambda: self.edit_task(item))
+
         self.ui.lineEdit_AddingItem.clear()
         self.ui.minhaLista_listWidget.setCurrentItem(None)
 
-    def update_task(self):
+    def edit_task(self, item):
         """
         Edita uma tarefa selecionada na lista de tarefas.
         """
-        selected_item = self.ui.minhaLista_listWidget.currentItem()
-        if selected_item is None:
-            QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, selecione uma tarefa para editar.")
-            return
+        # Obtém o widget associado ao item
+        item_widget = self.ui.minhaLista_listWidget.itemWidget(item)
+
+        # Obtém o label da tarefa dentro do widget
+        task_label = item_widget.findChild(QLabel)
+
+        # Obtém o texto atual da tarefa
+        current_text = task_label.text()
 
         # Abre uma caixa de diálogo para inserir o novo texto da tarefa
-        new_text, ok = QInputDialog.getText(self.ui.centralwidget, "Editar Tarefa", "Digite a nova tarefa:", text=selected_item.text())
+        new_text, ok = QInputDialog.getText(self.ui.centralwidget, "Editar Tarefa", "Digite a nova tarefa:", text=current_text)
         if ok:
-            selected_item.setText(new_text)
+            task_label.setText(new_text)
             self.ui.minhaLista_listWidget.setCurrentItem(None)
 
-    def delete_task(self):
+    def delete_task(self, item):
         """
         Remove uma tarefa selecionada da lista de tarefas.
         """
-        selected_item = self.ui.minhaLista_listWidget.currentItem()
-        if selected_item is None:
-            QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, selecione uma tarefa para remover.")
-            return
-
-        # Pede uma confirmação antes de remover a tarefa
         confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja remover esta tarefa?")
         if confirm == QMessageBox.Yes:
-            self.ui.minhaLista_listWidget.takeItem(self.ui.minhaLista_listWidget.row(selected_item))
-            self.ui.minhaLista_listWidget.setCurrentItem(None)
-            return
-
-    def clear_list(self):
-        """
-        Limpa a lista de tarefas.
-        """
-        if self.ui.minhaLista_listWidget.count() == 0:
-            QMessageBox.warning(self.ui.centralwidget, "Aviso", "A agenda já está vazia.")
-            return
-        
-        # Pede uma confirmação antes de limpar a lista de tarefas
-        confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja limpar a agenda?")
-        if confirm == QMessageBox.Yes:
-            self.ui.minhaLista_listWidget.clear()
+            self.ui.minhaLista_listWidget.takeItem(self.ui.minhaLista_listWidget.row(item))
 
     def find_task(self):
         """
