@@ -1,19 +1,13 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QCursor
-from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QInputDialog, 
-    QMessageBox, QAbstractItemView, QListWidget, 
-    QListWidgetItem, QPushButton, QHBoxLayout,
-    QWidget, QLabel, QSpacerItem, QSizePolicy,
-    QCheckBox
-)
+from PyQt5.QtWidgets import *
 from janela import Ui_MainWindow
 
-class Agenda:
+class ListaTodo:
     def __init__(self, ui):
         """
-        Inicializa a Agenda.
+        Inicializa a aplicação.
         Args:
             ui: Instância da classe Ui_MainWindow gerada pelo Qt Designer.
         """
@@ -39,7 +33,7 @@ class Agenda:
 
     def add_task(self):
         """
-        Adiciona uma tarefa à lista de tarefas da agenda.
+        Adiciona a tarefa à lista e configura as propriedades de edição e remoção nela.
         """
         task_text = self.ui.lineEdit_AddingItem.text()
         if task_text == "":
@@ -101,7 +95,7 @@ class Agenda:
 
     def edit_task(self, item):
         """
-        Edita uma tarefa selecionada na lista de tarefas.
+        Edita uma tarefa da lista.
         """
         # Obtém o widget associado ao item
         item_widget = self.ui.minhaLista_listWidget.itemWidget(item)
@@ -120,7 +114,7 @@ class Agenda:
 
     def delete_task(self, item):
         """
-        Remove uma tarefa selecionada da lista de tarefas.
+        Remove uma tarefa da lista.
         """
         confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja remover esta tarefa?")
         if confirm == QMessageBox.Yes:
@@ -128,18 +122,25 @@ class Agenda:
 
     def find_task(self):
         """
-        Busca uma tarefa na lista da agenda.
+        Busca uma tarefa na lista.
         """
         task_text = self.ui.lineEdit_AddingItem.text()
         if task_text == "":
             QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, digite uma tarefa para buscar.")
             return
         
-        found_items = self.ui.minhaLista_listWidget.findItems(task_text, QtCore.Qt.MatchContains)
-        if len(found_items) > 0:
-            self.ui.minhaLista_listWidget.setCurrentItem(found_items[0])
-        else:
-            QMessageBox.information(self.ui.centralwidget, "Informação", "A tarefa não foi encontrada.")
+        for index in range(self.ui.minhaLista_listWidget.count()):
+            item = self.ui.minhaLista_listWidget.item(index)
+            item_widget = self.ui.minhaLista_listWidget.itemWidget(item)
+            task_label = item_widget.findChild(QLabel)
+
+            if task_text in task_label.text():
+                self.ui.minhaLista_listWidget.setCurrentItem(item)
+                self.ui.minhaLista_listWidget.scrollToItem(item)
+                self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
+                return
+
+        QMessageBox.information(self.ui.centralwidget, "Informação", "A tarefa não foi encontrada.")
 
 if __name__ == "__main__":
     app = QApplication([])
@@ -152,6 +153,6 @@ if __name__ == "__main__":
     window = QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(window)
-    agenda = Agenda(ui)
+    agenda = ListaTodo(ui)
     window.show()
     app.exec_()

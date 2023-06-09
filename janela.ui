@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Agenda</string>
+   <string>Lista Todo</string>
   </property>
   <property name="windowIcon">
    <iconset>

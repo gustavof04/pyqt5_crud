@@ -50,6 +50,7 @@ QPushButton#pushButton_Find {
 QPushButton#pushButton_Create {
     padding-right: 30px;
     padding-left: 30px;
+    border: none;
 }
 
 QMessageBox {
