@@ -20,7 +20,7 @@ class ListaTodo:
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_AddingItem.setPlaceholderText("Adicionar ao todo")
         self.ui.lineEdit_SearchItem.textChanged.connect(self.check_textbox)
-        self.ui.lineEdit_SearchItem.setPlaceholderText("Pesquise uma tarefa")
+        self.ui.lineEdit_SearchItem.setPlaceholderText("Pesquisar uma tarefa")
         self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)
 
 
@@ -83,6 +83,8 @@ class ListaTodo:
         remove_button.setToolTip("Remover esta tarefa")
         remove_button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         layout.addWidget(remove_button)
+
+        checkbox.stateChanged.connect(lambda state, label=task_label: label.setStyleSheet("text-decoration: line-through;" if state == Qt.Checked else ""))
 
         # Cria o item da lista
         item = QListWidgetItem()
