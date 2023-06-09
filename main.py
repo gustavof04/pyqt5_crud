@@ -18,7 +18,9 @@ class ListaTodo:
         self.ui.pushButton_Find.clicked.connect(self.find_task)
         self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
-        self.ui.lineEdit_AddingItem.setPlaceholderText("Digite uma tarefa")
+        self.ui.lineEdit_AddingItem.setPlaceholderText("Adicionar ao todo")
+        self.ui.lineEdit_SearchItem.textChanged.connect(self.check_textbox)
+        self.ui.lineEdit_SearchItem.setPlaceholderText("Pesquise uma tarefa")
         self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)
 
 
@@ -42,7 +44,11 @@ class ListaTodo:
         # Verifica se a tarefa já está na lista
         for index in range(self.ui.minhaLista_listWidget.count()):
             item = self.ui.minhaLista_listWidget.item(index)
-            if item.text() == task_text:
+            item_widget = self.ui.minhaLista_listWidget.itemWidget(item)
+            task_label = item_widget.findChild(QLabel)
+
+        # Verifica se o texto da tarefa é igual ao texto informado
+            if task_label.text() == task_text:
                 QMessageBox.warning(self.ui.centralwidget, "Aviso", "Esta tarefa já está na lista.")
                 return
 
@@ -124,7 +130,7 @@ class ListaTodo:
         """
         Busca uma tarefa na lista.
         """
-        task_text = self.ui.lineEdit_AddingItem.text()
+        task_text = self.ui.lineEdit_SearchItem.text()
         if task_text == "":
             QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, digite uma tarefa para buscar.")
             return
@@ -135,9 +141,9 @@ class ListaTodo:
             task_label = item_widget.findChild(QLabel)
 
             if task_text in task_label.text():
+                self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
                 self.ui.minhaLista_listWidget.setCurrentItem(item)
                 self.ui.minhaLista_listWidget.scrollToItem(item)
-                self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.SingleSelection)
                 return
 
         QMessageBox.information(self.ui.centralwidget, "Informação", "A tarefa não foi encontrada.")
@@ -153,6 +159,6 @@ if __name__ == "__main__":
     window = QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(window)
-    agenda = ListaTodo(ui)
+    lista = ListaTodo(ui)
     window.show()
     app.exec_()

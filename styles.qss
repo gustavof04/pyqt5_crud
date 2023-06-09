@@ -2,11 +2,22 @@ QMainWindow {
     background-color: "#ffffff";
 }
 
-QLineEdit {
+QLineEdit#lineEdit_AddingItem {
+    color: "#000000";
+    font-family: 'Roboto', arial, cursive;
+    font-size: 14px;
+    background-color: "#e3e4e6";
+    border-radius: 2px;
+    padding-left: 5px;
+    height: 30px;
+}
+
+QLineEdit#lineEdit_SearchItem {
     color: "#000000";
     font-family: 'Roboto', arial, cursive;
     background-color: "#e3e4e6";
     border-radius: 2px;
+    padding-left: 5px;
     height: 30px;
 }
 
@@ -50,7 +61,11 @@ QPushButton#pushButton_Find {
 QPushButton#pushButton_Create {
     padding-right: 30px;
     padding-left: 30px;
-    border: none;
+    background-color: "#3b82f6";
+}
+
+QPushButton#pushButton_Create:hover {
+    background-color: "#2563eb";
 }
 
 QMessageBox {
