@@ -15,10 +15,11 @@ class ListaTodo:
         self.ui.pushButton_Create.clicked.connect(self.add_task)
         self.ui.pushButton_Create.setToolTip('Adicionar tarefa')
         self.ui.pushButton_Create.setEnabled(False)
-        self.ui.pushButton_Find.clicked.connect(self.find_task)
+        self.ui.pushButton_Find.clicked.connect(self.search_task)
         self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_AddingItem.setPlaceholderText("Adicionar ao todo")
+        self.ui.lineEdit_AddingItem.selectionChanged.connect(self.clear_search_input)
         self.ui.lineEdit_SearchItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_SearchItem.setPlaceholderText("Pesquisar uma tarefa")
         self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)
@@ -128,7 +129,7 @@ class ListaTodo:
         if confirm == QMessageBox.Yes:
             self.ui.minhaLista_listWidget.takeItem(self.ui.minhaLista_listWidget.row(item))
 
-    def find_task(self):
+    def search_task(self):
         """
         Busca uma tarefa na lista.
         """
@@ -149,6 +150,14 @@ class ListaTodo:
                 return
 
         QMessageBox.information(self.ui.centralwidget, "Informação", "A tarefa não foi encontrada.")
+
+    def clear_search_input(self):
+        """
+        Limpa o texto do input de pesquisa quando adiciona uma tarefa.
+        """
+        self.ui.lineEdit_SearchItem.clear() # Limpa o texto em si
+        self.ui.minhaLista_listWidget.clearSelection() # Limpa a seleção do texto
+        self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection) # Valor padrão (sem seleção)
 
 if __name__ == "__main__":
     app = QApplication([])
