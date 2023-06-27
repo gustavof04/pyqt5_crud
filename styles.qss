@@ -30,7 +30,7 @@ QListWidget {
 
 QListWidget QLabel {
     color: "#1b1b1b";
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Roboto', arial, cursive;
     font-size: 18px;
     border-radius: 4px
 }
