@@ -1,17 +1,29 @@
+import sys
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QCursor
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QHBoxLayout, QLabel, QCheckBox, \
+    QPushButton, QSpacerItem, QSizePolicy, QListWidgetItem, QAbstractItemView, QMessageBox, QInputDialog
 from janela import Ui_MainWindow
 
-class ListaTodo:
-    def __init__(self, ui):
-        """
-        Inicializa a aplicação.
-        Args:
-            ui: Instância da classe Ui_MainWindow gerada pelo Qt Designer.
-        """
-        self.ui = ui
+
+class TodoListApp:
+    def __init__(self):
+        app = QApplication(sys.argv)
+
+        # Carrega estilizações
+        with open("styles.qss", "r") as f:
+            qss = f.read()
+            app.setStyleSheet(qss)
+
+        window = QMainWindow()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(window)
+        self.initialize_ui()
+        window.show()
+        sys.exit(app.exec_())
+
+    def initialize_ui(self):
         self.ui.pushButton_Create.clicked.connect(self.add_task)
         self.ui.pushButton_Create.setToolTip('Adicionar tarefa')
         self.ui.pushButton_Create.setEnabled(False)
@@ -23,7 +35,6 @@ class ListaTodo:
         self.ui.lineEdit_SearchItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_SearchItem.setPlaceholderText("Pesquisar uma tarefa")
         self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)
-
 
     def check_textbox(self):
         """
@@ -38,8 +49,8 @@ class ListaTodo:
         """
         Adiciona a tarefa à lista e configura as propriedades de edição e remoção nela.
         """
-        task_text = self.ui.lineEdit_AddingItem.text()
-        if task_text == "":
+        task_text = self.ui.lineEdit_AddingItem.text().strip()
+        if not task_text:
             return
 
         # Verifica se a tarefa já está na lista
@@ -48,7 +59,7 @@ class ListaTodo:
             item_widget = self.ui.minhaLista_listWidget.itemWidget(item)
             task_label = item_widget.findChild(QLabel)
 
-        # Verifica se o texto da tarefa é igual ao texto informado
+            # Verifica se o texto da tarefa é igual ao texto informado
             if task_label.text() == task_text:
                 QMessageBox.warning(self.ui.centralwidget, "Aviso", "Esta tarefa já está na lista.")
                 return
@@ -77,6 +88,7 @@ class ListaTodo:
         edit_button.setToolTip("Editar esta tarefa")
         edit_button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         layout.addWidget(edit_button)
+
         # Cria o botão de remover
         remove_button = QPushButton()
         remove_button.setIcon(QIcon("assets/remove.svg"))
@@ -85,7 +97,8 @@ class ListaTodo:
         remove_button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         layout.addWidget(remove_button)
 
-        checkbox.stateChanged.connect(lambda state, label=task_label: label.setStyleSheet("text-decoration: line-through;" if state == Qt.Checked else ""))
+        checkbox.stateChanged.connect(lambda state, label=task_label: label.setStyleSheet(
+            "text-decoration: line-through;" if state == Qt.Checked else ""))
 
         # Cria o item da lista
         item = QListWidgetItem()
@@ -116,7 +129,8 @@ class ListaTodo:
         current_text = task_label.text()
 
         # Abre uma caixa de diálogo para inserir o novo texto da tarefa
-        new_text, ok = QInputDialog.getText(self.ui.centralwidget, "Editar Tarefa", "Digite a nova tarefa:", text=current_text)
+        new_text, ok = QInputDialog.getText(self.ui.centralwidget, "Editar Tarefa", "Digite a nova tarefa:",
+                                             text=current_text)
         if ok:
             task_label.setText(new_text)
             self.ui.minhaLista_listWidget.setCurrentItem(None)
@@ -133,11 +147,11 @@ class ListaTodo:
         """
         Busca uma tarefa na lista.
         """
-        task_text = self.ui.lineEdit_SearchItem.text()
-        if task_text == "":
+        task_text = self.ui.lineEdit_SearchItem.text().strip()
+        if not task_text:
             QMessageBox.warning(self.ui.centralwidget, "Aviso", "Por favor, digite uma tarefa para buscar.")
             return
-        
+
         for index in range(self.ui.minhaLista_listWidget.count()):
             item = self.ui.minhaLista_listWidget.item(index)
             item_widget = self.ui.minhaLista_listWidget.itemWidget(item)
@@ -155,21 +169,9 @@ class ListaTodo:
         """
         Limpa o texto do input de pesquisa quando adiciona uma tarefa.
         """
-        self.ui.lineEdit_SearchItem.clear() # Limpa o texto em si
-        self.ui.minhaLista_listWidget.clearSelection() # Limpa a seleção do texto
-        self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection) # Valor padrão (sem seleção)
+        self.ui.lineEdit_SearchItem.clear()  # Limpa o texto em si
+        self.ui.minhaLista_listWidget.clearSelection()  # Limpa a seleção do texto
+        self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)  # Valor padrão (sem seleção)
 
 if __name__ == "__main__":
-    app = QApplication([])
-
-    # Carrega as estilizações
-    with open("styles.qss", "r") as f:
-        qss = f.read()
-        app.setStyleSheet(qss)
-
-    window = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(window)
-    lista = ListaTodo(ui)
-    window.show()
-    app.exec_()
+    app = TodoListApp()
