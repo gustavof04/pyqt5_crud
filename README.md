@@ -32,7 +32,7 @@ https://www.python.org/ftp/python/3.11.1/python-3.11.1-macos11.pkg
 
   <code>pip install -r requirements.txt</code>
 
-## Abrindo o projeto
+## 📂 Abrindo o projeto
 * Execute o arquivo principal da lista conforme abaixo:
 
   <code>python main.py</code>
