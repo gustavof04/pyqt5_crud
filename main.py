@@ -197,6 +197,14 @@ class ListaTodo:
         """
         confirm = QMessageBox.question(self.ui.centralwidget, "Confirmar", "Tem certeza que deseja remover esta tarefa?")
         if confirm == QMessageBox.Yes:
+            text = item.task_text
+
+            conn = sqlite3.connect('tasks.db')
+            c = conn.cursor()
+            c.execute("DELETE FROM tasks WHERE list_item = ?", (text,))
+            conn.commit()
+            conn.close()
+
             self.ui.minhaLista_listWidget.takeItem(self.ui.minhaLista_listWidget.row(item))
 
     def search_task(self):
