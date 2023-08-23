@@ -1,9 +1,25 @@
+import sqlite3
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QCursor
 from PyQt5.QtWidgets import *
 from janela import Ui_MainWindow
 
+# criando conexao com db
+conn = sqlite3.connect('tasks.db')
+# cirando cursor
+c = conn.cursor()
+
+# criando tabela
+c.execute("""CREATE TABLE if not exists tasks(
+    list_item TEXT)
+    """)
+
+# commitando as mudanças
+conn.commit()
+
+# fechar conexão
+conn.close()
 class ListaTodo:
     def __init__(self, ui):
         """
@@ -12,9 +28,10 @@ class ListaTodo:
             ui: Instância da classe Ui_MainWindow gerada pelo Qt Designer.
         """
         self.ui = ui
-        self.ui.pushButton_Create.clicked.connect(self.add_task)
+        self.ui.pushButton_Create.clicked.connect(self.setup_task)
         self.ui.pushButton_Create.setToolTip('Adicionar tarefa')
         self.ui.pushButton_Create.setEnabled(False)
+        self.ui.pushButton_Create.clicked.connect(self.save_task_on_db)
         self.ui.pushButton_Find.clicked.connect(self.search_task)
         self.ui.pushButton_Find.setToolTip('Buscar tarefa')
         self.ui.lineEdit_AddingItem.textChanged.connect(self.check_textbox)
@@ -34,7 +51,7 @@ class ListaTodo:
         else:
             self.ui.pushButton_Create.setEnabled(True)
 
-    def add_task(self):
+    def setup_task(self):
         """
         Adiciona a tarefa à lista e configura as propriedades de edição e remoção nela.
         """
@@ -70,14 +87,14 @@ class ListaTodo:
         spacer_item = QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Minimum)
         layout.addItem(spacer_item)
 
-        # Cria o botão de editar
+        # Cria o botão de editar ao lado da tarefa adicionada
         edit_button = QPushButton()
         edit_button.setIcon(QIcon("assets/edit.svg"))
         edit_button.setIconSize(QtCore.QSize(24, 24))
         edit_button.setToolTip("Editar esta tarefa")
         edit_button.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         layout.addWidget(edit_button)
-        # Cria o botão de remover
+        # Cria o botão de remover ao lado da tarefa adicionada
         remove_button = QPushButton()
         remove_button.setIcon(QIcon("assets/remove.svg"))
         remove_button.setIconSize(QtCore.QSize(24, 24))
@@ -90,6 +107,7 @@ class ListaTodo:
         # Cria o item da lista
         item = QListWidgetItem()
         item.setSizeHint(item_widget.sizeHint())  # Define o tamanho do item com base no tamanho do widget
+        item.task_text = task_text
         self.ui.minhaLista_listWidget.addItem(item)
         self.ui.minhaLista_listWidget.setItemWidget(item, item_widget)
 
@@ -101,6 +119,51 @@ class ListaTodo:
 
         self.ui.lineEdit_AddingItem.clear()
         self.ui.minhaLista_listWidget.setCurrentItem(None)
+
+    def save_task_on_db(self):
+        # criando conexao com db
+        conn = sqlite3.connect('tasks.db')
+        # cirando cursor
+        c = conn.cursor()
+
+        # excluindo tudo na tabela do banco de dados
+        c.execute('DELETE FROM tasks;',)
+
+        # criar lista em branco para armazenar itens de tarefas
+        items = []
+        # percorrer a lista e retirar cada item
+        for index in range(self.ui.minhaLista_listWidget.count()):
+            items.append(self.ui.minhaLista_listWidget.item(index))
+
+        for item in items:
+            # print(item.text())
+            # adicionando as coisas na tabela
+            c.execute("INSERT INTO tasks VALUES (:item)", {'item': item.task_text,})
+
+            # commitando as mudanças
+        conn.commit()
+
+        # fechar conexão
+        conn.close()
+
+    def grab_all(self):
+        # criando conexao com db
+        conn = sqlite3.connect('tasks.db')
+        # cirando cursor
+        c = conn.cursor()
+
+        c.execute("SELECT * FROM tasks")
+        records = c.fetchall()
+
+        # commitando as mudanças
+        conn.commit()
+
+        # fechar conexão
+        conn.close()
+
+        # fazer loop através de registros e adicionar à tela
+        for record in records:
+            self.ui.minhaLista_listWidget.addItem(str(record))
 
     def edit_task(self, item):
         """
