@@ -182,6 +182,13 @@ class ListaTodo:
         new_text, ok = QInputDialog.getText(self.ui.centralwidget, "Editar Tarefa", "Digite a nova tarefa:", text=current_text)
         if ok:
             task_label.setText(new_text)
+
+            conn = sqlite3.connect('tasks.db')
+            c = conn.cursor()
+            c.execute("UPDATE tasks SET list_item = ? WHERE list_item = ?", (new_text, current_text))
+            conn.commit()
+            conn.close()
+
             self.ui.minhaLista_listWidget.setCurrentItem(None)
 
     def delete_task(self, item):
