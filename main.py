@@ -5,20 +5,20 @@ from PyQt5.QtGui import QIcon, QCursor
 from PyQt5.QtWidgets import *
 from janela import Ui_MainWindow
 
-# criando conexao com db
+# Criando conexão com db
 conn = sqlite3.connect('tasks.db')
-# cirando cursor
+# Criando cursor
 c = conn.cursor()
 
-# criando tabela
+# Criando tabela
 c.execute("""CREATE TABLE if not exists tasks(
     list_item TEXT)
     """)
 
-# commitando as mudanças
+# Commitando as mudanças
 conn.commit()
 
-# fechar conexão
+# Fechando conexão
 conn.close()
 class ListaTodo:
     def __init__(self, ui):
@@ -40,7 +40,6 @@ class ListaTodo:
         self.ui.lineEdit_SearchItem.textChanged.connect(self.check_textbox)
         self.ui.lineEdit_SearchItem.setPlaceholderText("Pesquisar uma tarefa")
         self.ui.minhaLista_listWidget.setSelectionMode(QAbstractItemView.NoSelection)
-
 
     def check_textbox(self):
         """
@@ -121,47 +120,42 @@ class ListaTodo:
         self.ui.minhaLista_listWidget.setCurrentItem(None)
 
     def save_task_on_db(self):
-        # criando conexao com db
+        """
+        Salva as tarefas da lista da interface gráfica, conforme as adiciona, em um banco de dados sqlite.
+        """
         conn = sqlite3.connect('tasks.db')
-        # cirando cursor
         c = conn.cursor()
 
-        # excluindo tudo na tabela do banco de dados
+        # Exclui tudo na tabela do banco de dados
         c.execute('DELETE FROM tasks;',)
 
-        # criar lista em branco para armazenar itens de tarefas
+        # Cria lista em branco para armazenar itens de tarefas
         items = []
-        # percorrer a lista e retirar cada item
+        # Percorre a lista e retira cada item
         for index in range(self.ui.minhaLista_listWidget.count()):
             items.append(self.ui.minhaLista_listWidget.item(index))
 
         for item in items:
-            # print(item.text())
-            # adicionando as coisas na tabela
+            # Adiciona as coisas na tabela
             c.execute("INSERT INTO tasks VALUES (:item)", {'item': item.task_text,})
 
-            # commitando as mudanças
         conn.commit()
-
-        # fechar conexão
         conn.close()
 
     def grab_all(self):
-        # criando conexao com db
+        """
+        Recupera os dados do banco e preenche a lista com esses dados.
+        """
         conn = sqlite3.connect('tasks.db')
-        # cirando cursor
         c = conn.cursor()
 
         c.execute("SELECT * FROM tasks")
         records = c.fetchall()
 
-        # commitando as mudanças
         conn.commit()
-
-        # fechar conexão
         conn.close()
 
-        # fazer loop através de registros e adicionar à tela
+        # Faz loop através de registros e adiciona à tela
         for record in records:
             self.ui.minhaLista_listWidget.addItem(str(record))
 
