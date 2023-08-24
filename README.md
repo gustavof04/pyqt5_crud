@@ -1,6 +1,6 @@
 # Lista Todo + CRUD com <img src="https://www.pythonguis.com/images/libraries/pyqt5.png" alt="PyQt5" width="90"> e <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/1200px-SQLite370.svg.png" alt="SQLite" width="90">
 
-Aplicação em Python utilizando a biblioteca PyQt5 para a construção de uma lista todo com as operações CRUD (Create, Read, Update, Delete). 
+Interface gráfica em Python utilizando a biblioteca PyQt5 para a construção de uma lista todo com as operações CRUD (Create, Read, Update, Delete). 
 Além de permitir que o usuário adicione, visualize, edite e remova atividades, a aplicação possui um banco de dados integrado utilizando a lib sqlite3 do Python. 
 
 ## 🔧 Tecnologias utilizadas
@@ -52,4 +52,4 @@ https://www.python.org/ftp/python/3.11.1/python-3.11.1-macos11.pkg
 ## 🗄️ Sobre o banco de dados
 * Basta adicionar uma tarefa na aplicação e um banco de dados <code>tasks.db</code> é gerado automaticamente com as tarefas inclusas nele.
 
-  **Obs.:** Para cada alteração, lembre-se de atualizar o arquivo fechando-o e abrindo-o novamente. Caso esteja com algum gerenciador de banco de dados instalado, apenas aperte F5 para atualizá-lo.
+  **Obs.:** Para cada alteração na aplicação, lembre-se de atualizar o arquivo fechando-o e abrindo-o novamente. Caso esteja com algum gerenciador de banco de dados instalado, apenas aperte F5 para atualizá-lo.
