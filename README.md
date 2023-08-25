@@ -52,4 +52,4 @@ https://www.python.org/ftp/python/3.11.1/python-3.11.1-macos11.pkg
 ## 🗄️ Sobre o banco de dados
 * Basta adicionar uma tarefa na aplicação e um banco de dados <code>tasks.db</code> é gerado automaticamente com as tarefas inclusas nele.
 
-  **Obs.:** Para cada alteração na aplicação, lembre-se de atualizar o arquivo fechando-o e abrindo-o novamente. Caso esteja com algum gerenciador de banco de dados instalado, apenas aperte F5 para atualizá-lo.
+  **Obs.:** Para cada alteração na aplicação, lembre-se de atualizar o arquivo fechando-o e abrindo-o novamente. Caso esteja com algum gerenciador de banco de dados, apenas aperte F5 para atualizá-lo.
