@@ -1,4 +1,4 @@
-# Lista Todo + CRUD com <img src="https://www.pythonguis.com/images/libraries/pyqt5.png" alt="PyQt5" width="90"> e <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/1200px-SQLite370.svg.png" alt="SQLite" width="90">
+# Lista Todo + CRUD com PyQt5 e <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/1200px-SQLite370.svg.png" alt="SQLite" width="90">
 
 Interface gráfica em Python utilizando a biblioteca PyQt5 para a construção de uma lista todo com as operações CRUD (Create, Read, Update, Delete). 
 Além de permitir que o usuário adicione, visualize, edite e remova atividades, a aplicação possui um banco de dados integrado utilizando a lib sqlite3 do Python. 
