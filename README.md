@@ -3,6 +3,8 @@
 Interface gráfica em Python utilizando a biblioteca PyQt5 para a construção de uma lista todo com as operações CRUD (Create, Read, Update, Delete). 
 Além de permitir que o usuário adicione, visualize, edite e remova atividades, a aplicação possui um banco de dados integrado utilizando a lib sqlite3 do Python. 
 
+> Status do Projeto: ✔️ (concluído)
+
 ## 🔧 Tecnologias utilizadas
 Python V.: 3.11.1 || PyQt5 V.: 5.15.9
 
