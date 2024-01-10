@@ -8,16 +8,6 @@ Além de permitir que o usuário adicione, visualize, edite e remova atividades,
 ## 🔧 Tecnologias utilizadas
 Python V.: 3.11.1 || PyQt5 V.: 5.15.9
 
-OBS.: É obrigatória a instalação manual do Python na versão citada acima para ser possível a criação do ambiente virtual e instalação das dependências do projeto.
-
-- Windows 8+
-
-https://www.python.org/ftp/python/3.11.1/python-3.11.1-amd64.exe
-
-- macOS 10.9+
-
-https://www.python.org/ftp/python/3.11.1/python-3.11.1-macos11.pkg
-
 ## ⚙️ Configurando o ambiente virtual
 * No seu terminal, navegue até a pasta raiz do projeto e execute o seguinte comando para criar um ambiente virtual:
 
