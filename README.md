@@ -1,47 +1,46 @@
-# Lista Todo + CRUD com PyQt5 e <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/1200px-SQLite370.svg.png" alt="SQLite" width="90">
+# Todo List + CRUD with PyQt5 and <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/1200px-SQLite370.svg.png" alt="SQLite" width="90">
 
-Interface gráfica em Python utilizando a biblioteca PyQt5 para a construção de uma lista todo com as operações CRUD (Create, Read, Update, Delete). 
-Além de permitir que o usuário adicione, visualize, edite e remova atividades, a aplicação possui um banco de dados integrado utilizando a lib sqlite3 do Python. 
+Graphical interface in Python using the PyQt5 library to build a todo list with CRUD operations (Create, Read, Update, Delete). In addition to allowing the user to add, view, edit, and remove tasks, the application has an integrated database using Python's sqlite3 library.
 
-> Status do Projeto: ✔️ (concluído)
+> Project Status: ✔️ (completed)
 
-## 🔧 Tecnologias utilizadas
+## 🔧 Technologies Used
 Python V.: 3.11.1 || PyQt5 V.: 5.15.9
 
-## ⚙️ Configurando o ambiente virtual
-* No seu terminal, navegue até a pasta raiz do projeto e execute o seguinte comando para criar um ambiente virtual:
+## ⚙️ Setting Up the Virtual Environment
+* In your terminal, navigate to the project's root folder and run the following command to create a virtual environment:
 
   ```bash
-  python -m venv nome_da_virtualenv
+  python -m venv name_of_virtualenv
   ```
 
-* Rode o comando de acordo com seu sistema para ativar seu ambiente virtual:
+* Run the command according to your system to activate your virtual environment:
 
   Windows
   ```bash
-  .\nome_da_virtualenv\Scripts\activate
+  .\name_of_virtualenv\Scripts\activate
   ```
 
-  Linux ou macOS
+  Linux or macOS
   ```bash
-  source nome_da_virtualenv/bin/activate
+  source name_of_virtualenv/bin/activate
   ``` 
 
-## 🧑‍🔬 Instalando as dependências
-* Com o ambiente virtual **ativado**, instale as dependências do projeto com o seguinte comando:
+## 🧑‍🔬 Installing Dependencies
+* With the virtual environment **activated**, install the project dependencies with the following command:
 
   ```bash
   pip install -r requirements.txt
   ```
 
-## 🚀 Executando o projeto
-* Execute o arquivo principal da lista conforme abaixo:
+## 🚀 Running the Project
+* Run the main file from the list as follows:
 
   ```bash
   python main.py
   ```
 
-## 🗄️ Sobre o banco de dados
-* Basta adicionar uma tarefa na aplicação e um banco de dados <code>tasks.db</code> é gerado automaticamente com as tarefas inclusas nele.
+## 🗄️ About the Database
+* Just add a task in the application and a <code>tasks.db</code> database is automatically generated with the tasks included in it.
 
-  **Obs.:** Para cada alteração na aplicação, lembre-se de atualizar o arquivo fechando-o e abrindo-o novamente. Caso esteja com algum gerenciador de banco de dados, apenas aperte F5 para atualizá-lo.
+  **Note:** For each change in the application, remember to update the file by closing and reopening it. If you are using a database manager, just press F5 to refresh it.
